@@ -1,0 +1,69 @@
+//
+//  Testing.swift
+//  Scorebored
+//
+//  Created by Bhavesh Chaudhari on 21/10/18.
+//  Copyright © 2018 SCOREBORED. All rights reserved.
+//
+
+import Foundation
+
+
+
+struct ResponseBase<T:Codable> : Codable {
+    
+    let code : String?
+    let data : [T]?
+    let message : String?
+    
+    enum CodingKeys: String, CodingKey {
+        case code = "Code"
+        case data = "Data"
+        case message = "Message"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        code = try values.decodeIfPresent(String.self, forKey: .code)
+        data = try values.decodeIfPresent([T].self, forKey: .data)
+        message = try values.decodeIfPresent(String.self, forKey: .message)
+    }
+    
+}
+
+
+struct SocialWarmer : Codable {
+    
+    let createdDate : String?
+    let lookUpId : String?
+    let lookupKey : String?
+    let lookupValue : String?
+    let parentId : String?
+    let statusFlag : String?
+    let type : String?
+    let updatedDate : String?
+    
+    enum CodingKeys: String, CodingKey {
+        case createdDate = "CreatedDate"
+        case lookUpId = "LookUpId"
+        case lookupKey = "LookupKey"
+        case lookupValue = "LookupValue"
+        case parentId = "ParentId"
+        case statusFlag = "StatusFlag"
+        case type = "Type"
+        case updatedDate = "UpdatedDate"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        createdDate = try values.decodeIfPresent(String.self, forKey: .createdDate)
+        lookUpId = try values.decodeIfPresent(String.self, forKey: .lookUpId)
+        lookupKey = try values.decodeIfPresent(String.self, forKey: .lookupKey)
+        lookupValue = try values.decodeIfPresent(String.self, forKey: .lookupValue)
+        parentId = try values.decodeIfPresent(String.self, forKey: .parentId)
+        statusFlag = try values.decodeIfPresent(String.self, forKey: .statusFlag)
+        type = try values.decodeIfPresent(String.self, forKey: .type)
+        updatedDate = try values.decodeIfPresent(String.self, forKey: .updatedDate)
+    }
+    
+}
