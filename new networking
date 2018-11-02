@@ -1,0 +1,71 @@
+//
+//  BaseApiClient.swift
+//  Scorebored
+//
+//  Created by Bhavesh Chaudhari on 11/10/18.
+//  Copyright © 2018 SCOREBORED. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+
+class BaseApiClient {
+    
+    static let `default`  = BaseApiClient()
+    
+    private init() {
+        
+    }
+    
+    
+    
+    
+    
+    func fetch<model:Codable>(request:APIRouter ,onSuccess: @escaping ([model]) -> Void) {
+        
+        
+        if Connectivity.isReachable {
+            (UIApplication.shared.delegate as! AppDelegate).addProgressView()
+            Alamofire.request(request).responseJSON { (response) in
+                switch response.result {
+                case .success( let apiResponse) :
+                    
+                  
+                    
+                    
+                    DispatchQueue.main.async {
+                        (UIApplication.shared.delegate as! AppDelegate).hideProgrssVoew()
+                    }
+                      if let responseData = apiResponse as? [String:Any] , let status  = responseData["Code"] as? String , status == "SUCCESS" {
+//                            onSuccess(responseData)
+                        
+                        do {
+                            let decoder = JSONDecoder()
+                            let responseModel  = try decoder.decode(ResponseBase<model>.self, from: response.data!)
+                            onSuccess(responseModel.data!)
+                            
+                        }
+                        catch let error as NSError {
+                            print("failed reason : \(error.localizedDescription)")
+                        }
+                        
+                        
+                        
+                      }
+                      else {
+                        UIApplication.shared.gettopMostViewController()?.presentAlerterror(title: "Erorr", message: "Service not Avilabel" ,okclick: nil)
+                    }
+                case .failure(let error) :
+                    UIApplication.shared.gettopMostViewController()?.presentAlerterror(title: "Erorr", message: error.localizedDescription, okclick: nil)
+                }
+            }
+        }
+        else {
+            (UIApplication.shared.delegate as! AppDelegate).hideProgrssVoew()
+            UIApplication.shared.gettopMostViewController()?.presentAlerterror(title: "Error", message: "connnection not avilabel", okclick: nil)
+        }
+    }
+    
+}
+
+
