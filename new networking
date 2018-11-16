@@ -1,10 +1,4 @@
-//
-//  BaseApiClient.swift
-//  Scorebored
-//
-//  Created by Bhavesh Chaudhari on 11/10/18.
-//  Copyright © 2018 SCOREBORED. All rights reserved.
-//
+
 
 import Foundation
 import Alamofire
