@@ -1,10 +1,4 @@
-//
-//  TextBoxView.swift
-//  Wondate
-//
-//  Created by a on 3/27/18.
-//  Copyright © 2018 YoungBrainz Infotech. All rights reserved.
-//
+
 
 import Foundation
 import UIKit
