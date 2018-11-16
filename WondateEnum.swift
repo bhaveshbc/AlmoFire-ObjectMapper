@@ -1,10 +1,4 @@
-//
-//  WondateEnum.swift
-//  Wondate
-//
-//  Created by a on 5/14/18.
-//  Copyright © 2018 YoungBrainz Infotech. All rights reserved.
-//
+
 
 import Foundation
 
